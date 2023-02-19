@@ -1,0 +1,1433 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 208, in update
+    process_grad_batch(list(self.network.parameters()), 5.) # clip gradients and sum clipped gradients
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 63, in process_grad_batch
+    n = params[0].grad_batch.shape[0]
+AttributeError: 'Parameter' object has no attribute 'grad_batch'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 208, in update
+    process_grad_batch(list(self.network.parameters()), 5.) # clip gradients and sum clipped gradients
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 63, in process_grad_batch
+    n = params[0].grad_batch.shape[0]
+AttributeError: 'Parameter' object has no attribute 'grad_batch'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 208, in update
+    process_grad_batch(list(self.network.parameters()), 5.) # clip gradients and sum clipped gradients
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 63, in process_grad_batch
+    n = params[0].grad_batch.shape[0]
+AttributeError: 'Parameter' object has no attribute 'grad_batch'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 204, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    ReLU_inplace_to_False(network.named_modules())
+NameError: name 'ReLU_inplace_to_False' is not defined
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 204, in update
+    ReLU_inplace_to_False(network.named_modules())
+NameError: name 'ReLU_inplace_to_False' is not defined
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 204, in update
+    ReLU_inplace_to_False(network.named_modules())
+NameError: name 'ReLU_inplace_to_False' is not defined
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(network.named_modules())
+NameError: name 'network' is not defined
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network.named_modules())
+TypeError: ReLU_inplace_to_False() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network)
+TypeError: ReLU_inplace_to_False() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network)
+TypeError: ReLU_inplace_to_False() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network)
+TypeError: ReLU_inplace_to_False() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False()
+TypeError: ReLU_inplace_to_False() takes 0 positional arguments but 1 was given
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False()
+TypeError: ReLU_inplace_to_False() takes 0 positional arguments but 1 was given
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 208, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network)
+TypeError: ReLU_inplace_to_False() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 235, in ReLU_inplace_to_False
+    ReLU_inplace_to_False(layer)
+NameError: name 'ReLU_inplace_to_False' is not defined
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 235, in ReLU_inplace_to_False
+    ReLU_inplace_to_False(layer)
+NameError: name 'ReLU_inplace_to_False' is not defined
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 208, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network.modules())
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 232, in ReLU_inplace_to_False
+    for layer in module._modules.values():
+AttributeError: 'generator' object has no attribute '_modules'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network.modules())
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 232, in ReLU_inplace_to_False
+    for layer in module._modules.values():
+AttributeError: 'generator' object has no attribute '_modules'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network.modules())
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 232, in ReLU_inplace_to_False
+    for layer in module._modules.values():
+AttributeError: 'generator' object has no attribute '_modules'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network.modules())
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 232, in ReLU_inplace_to_False
+    for layer in module._modules.values():
+AttributeError: 'generator' object has no attribute '_modules'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network.modules())
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 232, in ReLU_inplace_to_False
+    for layer in module._modules.values():
+AttributeError: 'generator' object has no attribute '_modules'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network.modules())
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 232, in ReLU_inplace_to_False
+    for layer in module._modules.values():
+AttributeError: 'generator' object has no attribute '_modules'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 177, in __init__
+    self.ReLU_inplace_to_False(self.network.module)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1269, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'Sequential' object has no attribute 'module'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 180, in __init__
+    self.ReLU_inplace_to_False(module)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 239, in ReLU_inplace_to_False
+    ReLU_inplace_to_False(layer)
+NameError: name 'ReLU_inplace_to_False' is not defined
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 180, in __init__
+    self.ReLU_inplace_to_False(module)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 239, in ReLU_inplace_to_False
+    self.ReLU_inplace_to_False(layer)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 239, in ReLU_inplace_to_False
+    self.ReLU_inplace_to_False(layer)
+UnboundLocalError: local variable 'layer' referenced before assignment
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 180, in __init__
+    self.ReLU_inplace_to_False(module)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 239, in ReLU_inplace_to_False
+    self.ReLU_inplace_to_False(layer)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 239, in ReLU_inplace_to_False
+    self.ReLU_inplace_to_False(layer)
+UnboundLocalError: local variable 'layer' referenced before assignment
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 211, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 212, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 212, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 213, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 213, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 205, in update
+    for i, layer in self.network.layers:
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1269, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'Sequential' object has no attribute 'layers'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 205, in update
+    for i, layer in enumerate(self.network.layers):
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1269, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'Sequential' object has no attribute 'layers'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 212, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 213, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 212, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 212, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 101, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 59, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 212, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 212, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 213, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 213, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 207, in update
+    for layer in self.network:
+TypeError: 'ResNet' object is not iterable
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 214, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 270, in _forward_impl
+    x = self.relu(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/activation.py", line 102, in forward
+    return F.relu(input, inplace=self.inplace)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/functional.py", line 1455, in relu
+    result = torch.relu_(input)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 214, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 270, in _forward_impl
+    x = self.relu(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/activation.py", line 102, in forward
+    return F.relu(input, inplace=self.inplace)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/functional.py", line 1455, in relu
+    result = torch.relu_(input)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 214, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 270, in _forward_impl
+    x = self.relu(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/activation.py", line 102, in forward
+    return F.relu(input, inplace=self.inplace)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/functional.py", line 1455, in relu
+    result = torch.relu_(input)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 215, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 270, in _forward_impl
+    x = self.relu(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/activation.py", line 102, in forward
+    return F.relu(input, inplace=self.inplace)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/functional.py", line 1455, in relu
+    result = torch.relu_(input)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 215, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 270, in _forward_impl
+    x = self.relu(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/activation.py", line 102, in forward
+    return F.relu(input, inplace=self.inplace)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/functional.py", line 1455, in relu
+    result = torch.relu_(input)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 209, in update
+    if isinstance(layer, nn.conv2d):
+AttributeError: module 'torch.nn' has no attribute 'conv2d'
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 209, in update
+    if isinstance(module, nn.conv2d):
+AttributeError: module 'torch.nn' has no attribute 'conv2d'
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 215, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 270, in _forward_impl
+    x = self.relu(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/activation.py", line 102, in forward
+    return F.relu(input, inplace=self.inplace)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/functional.py", line 1455, in relu
+    result = torch.relu_(input)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 211, in update
+    module.inplace = false
+NameError: name 'false' is not defined
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 215, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 273, in _forward_impl
+    x = self.layer1(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 160, in forward
+    out += identity
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 215, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 273, in _forward_impl
+    x = self.layer1(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 160, in forward
+    out += identity
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 215, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 270, in _forward_impl
+    x = self.relu(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/activation.py", line 102, in forward
+    return F.relu(input, inplace=self.inplace)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/functional.py", line 1455, in relu
+    result = torch.relu_(input)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 215, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 273, in _forward_impl
+    x = self.layer1(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 160, in forward
+    out += identity
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 215, in update
+    outputs = self.network(all_x).clone()
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 273, in _forward_impl
+    x = self.layer1(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 160, in forward
+    out += identity
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 217, in update
+    outputs = self.network(all_x).clone()
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 273, in _forward_impl
+    x = self.layer1(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 160, in forward
+    out += identity
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 217, in update
+    outputs = self.network(all_x).clone()
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 217, in update
+    outputs = self.network(all_x).clone()
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 273, in _forward_impl
+    x = self.layer1(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 160, in forward
+    out += identity
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 222, in update
+    outputs = self.network(all_x).clone()
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 273, in _forward_impl
+    x = self.layer1(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 160, in forward
+    out += identity
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 175, in __init__
+    self.network = nn.Sequential(self.network.features, nn.ReLU, self.classifier)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1269, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'ResNet' object has no attribute 'features'
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 202, in <module>
+    algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 175, in __init__
+    self.network = nn.Sequential(self.network.featurizer, nn.ReLU, self.classifier)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1269, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'ResNet' object has no attribute 'featurizer'
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/multiprocessing/queues.py", line 239, in _feed
+    obj = _ForkingPickler.dumps(obj)
+  File "/usr/lib/python3.8/multiprocessing/reduction.py", line 51, in dumps
+    cls(buf, protocol).dump(obj)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 106, in <module>
+    dataset = vars(datasets)[args.dataset](args.data_dir,
+  File "/home/con278/diwa_dp/domainbed/datasets.py", line 183, in __init__
+    super(BasicCIFAR10, self).__init__(root, ['CIFAR10'], self.transform_dataset, (3, 32, 32,), 10)
+  File "/home/con278/diwa_dp/domainbed/datasets.py", line 172, in __init__
+    self.datasets.append(dataset_transform(images, labels, environments[i]))
+  File "/home/con278/diwa_dp/domainbed/datasets.py", line 203, in transform_dataset
+    x[i] = transform_ds(images[i])
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/transforms/transforms.py", line 95, in __call__
+    img = t(img)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/transforms/transforms.py", line 270, in forward
+    return F.normalize(tensor, self.mean, self.std, self.inplace)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/transforms/functional.py", line 356, in normalize
+    _log_api_usage_once(normalize)
+KeyboardInterrupt
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 219, in update
+    outputs = self.network(all_x).clone()
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 219, in update
+    outputs = self.network(all_x).clone()
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 99, in forward
+    out = self.layer1(out)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/lib/wide_resnet.py", line 58, in forward
+    out += self.shortcut(x)
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 217, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 273, in _forward_impl
+    x = self.layer1(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 160, in forward
+    out += identity
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/con278/diwa_dp/domainbed/scripts/train.py", line 260, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/home/con278/diwa_dp/domainbed/algorithms.py", line 219, in update
+    outputs = self.network(all_x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/diwa_dp/domainbed/networks.py", line 104, in forward
+    return self.dropout(self.network(x))
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 273, in _forward_impl
+    x = self.layer1(x)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1212, in _call_impl
+    result = forward_call(*input, **kwargs)
+  File "/home/con278/nimo/lib/python3.8/site-packages/torchvision/models/resnet.py", line 160, in forward
+    out += identity
+RuntimeError: Output 0 of BackwardHookFunctionBackward is a view and is being modified inplace. This view was created inside a custom Function (or because an input was returned as-is) and the autograd logic to handle view+inplace would override the custom backward associated with the custom Function, leading to incorrect gradients. This behavior is forbidden. You can fix this by cloning the output of the custom Function.
