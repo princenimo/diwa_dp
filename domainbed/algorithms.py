@@ -19,6 +19,10 @@ from domainbed import networks
 from domainbed.lib.misc import (
     random_pairs_of_minibatches, ParamDict, MovingAverage, l2_between_dicts
 )
+from opacus.validators import ModuleValidator
+from opacus import PrivacyEngine
+from opacus.utils.batch_memory_manager import BatchMemoryManager
+from torchvision import models
 
 
 ALGORITHMS = [
@@ -171,15 +175,21 @@ class DPSGD(Algorithm):
             self.hparams['nonlinear_classifier'])
 
         #self.network = nn.Sequential(self.featurizer, self.classifier)
-        self.network = networks.ResNet(input_shape, self.hparams)
- 
-        #print(self.network)
-        self.network = extend(self.network)
+        self.network = models.resnet18(num_classes=10) #networks.ResNet(input_shape, self.hparams)
 
-        for module in self.network.modules():
-            if isinstance(module, nn.ReLU):
-                print("Set ReLU activation inplace to false")
-                module.inplace = False
+        errors = ModuleValidator.validate(self.network, strict=False)
+        errors[-5:]
+        #print(errors)
+
+        self.network = ModuleValidator.fix(self.network)
+        ModuleValidator.validate(self.network, strict=False)
+        #print(self.network)
+        #self.network = extend(self.network)
+
+        #for module in self.network.modules():
+        #    if isinstance(module, nn.ReLU):
+        #        print("Set ReLU activation inplace to false")
+        #        module.inplace = False
 
         ####
 
@@ -199,15 +209,26 @@ class DPSGD(Algorithm):
             parameters_to_be_optimized = self.classifier.parameters()
 
         self.optimizer = torch.optim.SGD(
-            parameters_to_be_optimized,
+            self.network.parameters(),
             lr=self.hparams["lr"],
             weight_decay=self.hparams['weight_decay']
         )
 
-    def update(self, minibatches, unlabeled=None):
+        #for module in self.network.modules():
+        #    if isinstance(module, nn.ReLU):
+        #        print("Set ReLU activation inplace to false")
+        #       module.inplace = False
+
+    def update(self, minibatches, train_loader, unlabeled=None):
         all_x = torch.cat([x for x,y in minibatches])
         all_y = torch.cat([y for x,y in minibatches])
         print("Length of all_x: ", len(all_x))
+        MAX_GRAD_NORM = 1.2
+        EPSILON = 50.0
+        DELTA = 1e-5
+        EPOCHS = 4
+        MAX_PHYSICAL_BATCH_SIZE = 8
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         #loss = F.cross_entropy(self.predict(all_x), all_y)
         #print(self.network)
 
@@ -215,23 +236,80 @@ class DPSGD(Algorithm):
         #for layer in self.network.named_modules():
         #    print(layer)
 
-        self.optimizer.zero_grad()
-        outputs = self.network(all_x)
-        loss_func = nn.CrossEntropyLoss(reduction='sum')
-        loss_func = extend(loss_func)
-        loss = loss_func(outputs, all_y)
-        with backpack(BatchGrad()):
-            loss.backward()
-            process_grad_batch(list(self.network.parameters()), 5.) # clip gradients and sum clipped gradients
-            ## add noise to gradient
-            for p in self.network.parameters():
-                shape = p.grad.shape
-                numel = p.grad.numel()
-                grad_noise = torch.normal(0, noise_multiplier*args.clip/hparams['batch_size'], size=p.grad.shape, device=p.grad.device)
-                p.grad.data += grad_noise
+        privacy_engine = PrivacyEngine()
+        self.network, self.optimizer, train_loader = privacy_engine.make_private_with_epsilon(
+            module=self.network,
+            optimizer=self.optimizer,
+            data_loader=train_loader,
+            epochs=EPOCHS,
+            target_epsilon=EPSILON,
+            target_delta=DELTA,
+            max_grad_norm=MAX_GRAD_NORM,
+        )
+
+        print(f"Using sigma={self.optimizer.noise_multiplier} and C={MAX_GRAD_NORM}")
+
+        self.network.train()
+        criterion = nn.CrossEntropyLoss()
+
+        losses = []
+        top1_acc = []
+
+        with BatchMemoryManager(
+            data_loader=train_loader, 
+            max_physical_batch_size=MAX_PHYSICAL_BATCH_SIZE, 
+            optimizer=self.optimizer
+        ) as memory_safe_data_loader:
+
+            for i, (images, target) in enumerate(memory_safe_data_loader):   
+                self.optimizer.zero_grad()
+                images = images.to(device)
+                target = target.to(device)
+
+                # compute output
+                output = self.network(images)
+                loss = criterion(output, target)
+
+                preds = np.argmax(output.detach().cpu().numpy(), axis=1)
+                labels = target.detach().cpu().numpy()
+
+                # measure accuracy and record loss
+                acc = self.accuracy(preds, labels)
+
+                losses.append(loss.item())
+                top1_acc.append(acc)
+
+                loss.backward()
+                self.optimizer.step()
+
+
+                if (i+1) % 200 == 0:
+                    epsilon = privacy_engine.get_epsilon(DELTA)
+                    print(
+                        #f"\tTrain Epoch: {epoch} \t"
+                        f"Loss: {np.mean(losses):.6f} "
+                        f"Acc@1: {np.mean(top1_acc) * 100:.6f} "
+                        f"(ε = {epsilon:.2f}, δ = {DELTA})"
+                    )
+
+
+        #self.optimizer.zero_grad()
+        #outputs = self.network(all_x)
+        #loss_func = nn.CrossEntropyLoss(reduction='sum')
+        #loss_func = extend(loss_func)
+        #loss = loss_func(outputs, all_y)
+        #with backpack(BatchGrad()):
+        #    loss.backward()
+        #    process_grad_batch(list(self.network.parameters()), 5.) # clip gradients and sum clipped gradients
+        #    ## add noise to gradient
+        #    for p in self.network.parameters():
+        #        shape = p.grad.shape
+        #        numel = p.grad.numel()
+        #        grad_noise = torch.normal(0, noise_multiplier*args.clip/hparams['batch_size'], size=p.grad.shape, device=p.grad.device)
+        #       p.grad.data += grad_noise
 
         #loss.backward()
-        self.optimizer.step()
+        #self.optimizer.step()
 
 
         return {'loss': loss.item()}
@@ -244,6 +322,9 @@ class DPSGD(Algorithm):
             if isinstance(layer, nn.ReLU):
                 layer.inplace = False
         self.ReLU_inplace_to_False(layer)
+
+    def accuracy(self, preds, labels):
+        return (preds == labels).mean()
 
     ## DiWA for saving initialization ##
     def save_path_for_future_init(self, path_for_init):

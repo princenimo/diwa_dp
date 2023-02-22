@@ -108,7 +108,7 @@ if __name__ == "__main__":
     else:
         raise NotImplementedError
 
-    #print(len(dataset[0]))
+    print("Length of Dataset", len(dataset[0]))
 
     # Split each env into an 'in-split' and an 'out-split'. We'll train on
     # each in-split except the test envs, and evaluate on all splits.
@@ -175,6 +175,11 @@ if __name__ == "__main__":
         for i, (env, env_weights) in enumerate(in_splits)]
         #if i not in args.test_envs]
 
+    t_loaders = torch.utils.data.DataLoader(
+            dataset[0],
+            batch_size=hparams['batch_size'],
+    )
+
     uda_loaders = [InfiniteDataLoader(
         dataset=env,
         weights=env_weights,
@@ -220,10 +225,10 @@ if __name__ == "__main__":
 
     steps_per_epoch = min([len(env)/hparams['batch_size'] for env,_ in in_splits])
 
-    #print(steps_per_epoch)
+    print("Steps per epoch ", steps_per_epoch)
 
     n_steps = args.steps or dataset.N_STEPS
-    #print(n_steps)
+    print("number of steps ", n_steps)
     checkpoint_freq = args.checkpoint_freq or dataset.CHECKPOINT_FREQ
     #print(checkpoint_freq)
 
@@ -257,7 +262,7 @@ if __name__ == "__main__":
                 for x,_ in next(uda_minibatches_iterator)]
         else:
             uda_device = None
-        step_vals = algorithm.update(minibatches_device, uda_device)
+        step_vals = algorithm.update(minibatches_device, t_loaders, uda_device)
         checkpoint_vals['step_time'].append(time.time() - step_start_time)
 
         for key, val in step_vals.items():
