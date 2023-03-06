@@ -92,7 +92,7 @@ class Algorithm(torch.nn.Module):
         super(Algorithm, self).__init__()
         self.hparams = hparams
 
-    def update(self, minibatches, unlabeled=None):
+    def update(self, model, optimizer, batch_idx, imgs, labels, epoch, device, criterion, losses, top1_acc, privacy_engine):
         """
         Perform one update step, given a list of (x, y) tuples for all
         environments.
@@ -102,7 +102,7 @@ class Algorithm(torch.nn.Module):
         """
         raise NotImplementedError
 
-    def predict(self, x):
+    def predict(self, model, x):
         raise NotImplementedError
 
 class ERM(Algorithm):
@@ -152,7 +152,7 @@ class ERM(Algorithm):
 
         return {'loss': loss.item()}
 
-    def predict(self, x):
+    def predict(self, model, x):
         return self.network(x)
 
     ## DiWA for saving initialization ##
@@ -183,6 +183,10 @@ class DPSGD(Algorithm):
 
         self.network = ModuleValidator.fix(self.network)
         ModuleValidator.validate(self.network, strict=False)
+
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.network = self.network.to(device)
+
         #print(self.network)
         #self.network = extend(self.network)
 
@@ -219,103 +223,47 @@ class DPSGD(Algorithm):
         #        print("Set ReLU activation inplace to false")
         #       module.inplace = False
 
-    def update(self, minibatches, train_loader, unlabeled=None):
-        all_x = torch.cat([x for x,y in minibatches])
-        all_y = torch.cat([y for x,y in minibatches])
-        print("Length of all_x: ", len(all_x))
-        MAX_GRAD_NORM = 1.2
-        EPSILON = 50.0
+    def update(self, model, optimizer, batch_idx, images, target, epoch, device, criterion, losses, top1_acc, privacy_engine):
         DELTA = 1e-5
-        EPOCHS = 4
-        MAX_PHYSICAL_BATCH_SIZE = 8
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        #loss = F.cross_entropy(self.predict(all_x), all_y)
-        #print(self.network)
-
-        
-        #for layer in self.network.named_modules():
-        #    print(layer)
-
-        privacy_engine = PrivacyEngine()
-        self.network, self.optimizer, train_loader = privacy_engine.make_private_with_epsilon(
-            module=self.network,
-            optimizer=self.optimizer,
-            data_loader=train_loader,
-            epochs=EPOCHS,
-            target_epsilon=EPSILON,
-            target_delta=DELTA,
-            max_grad_norm=MAX_GRAD_NORM,
-        )
-
-        print(f"Using sigma={self.optimizer.noise_multiplier} and C={MAX_GRAD_NORM}")
-
-        self.network.train()
+        self.network = model
+        model.train()
         criterion = nn.CrossEntropyLoss()
 
         losses = []
         top1_acc = []
 
-        with BatchMemoryManager(
-            data_loader=train_loader, 
-            max_physical_batch_size=MAX_PHYSICAL_BATCH_SIZE, 
-            optimizer=self.optimizer
-        ) as memory_safe_data_loader:
+        optimizer.zero_grad()
 
-            for i, (images, target) in enumerate(memory_safe_data_loader):   
-                self.optimizer.zero_grad()
-                images = images.to(device)
-                target = target.to(device)
+        # compute output
+        output = model(images)
+        loss = criterion(output, target)
 
-                # compute output
-                output = self.network(images)
-                loss = criterion(output, target)
+        preds = np.argmax(output.detach().cpu().numpy(), axis=1)
+        labels = target.detach().cpu().numpy()
 
-                preds = np.argmax(output.detach().cpu().numpy(), axis=1)
-                labels = target.detach().cpu().numpy()
+        # measure accuracy and record loss
+        acc = self.accuracy(preds, labels)
 
-                # measure accuracy and record loss
-                acc = self.accuracy(preds, labels)
+        losses.append(loss.item())
+        top1_acc.append(acc)
 
-                losses.append(loss.item())
-                top1_acc.append(acc)
-
-                loss.backward()
-                self.optimizer.step()
+        loss.backward()
+        optimizer.step()
 
 
-                if (i+1) % 200 == 0:
-                    epsilon = privacy_engine.get_epsilon(DELTA)
-                    print(
-                        #f"\tTrain Epoch: {epoch} \t"
-                        f"Loss: {np.mean(losses):.6f} "
-                        f"Acc@1: {np.mean(top1_acc) * 100:.6f} "
-                        f"(ε = {epsilon:.2f}, δ = {DELTA})"
-                    )
-
-
-        #self.optimizer.zero_grad()
-        #outputs = self.network(all_x)
-        #loss_func = nn.CrossEntropyLoss(reduction='sum')
-        #loss_func = extend(loss_func)
-        #loss = loss_func(outputs, all_y)
-        #with backpack(BatchGrad()):
-        #    loss.backward()
-        #    process_grad_batch(list(self.network.parameters()), 5.) # clip gradients and sum clipped gradients
-        #    ## add noise to gradient
-        #    for p in self.network.parameters():
-        #        shape = p.grad.shape
-        #        numel = p.grad.numel()
-        #        grad_noise = torch.normal(0, noise_multiplier*args.clip/hparams['batch_size'], size=p.grad.shape, device=p.grad.device)
-        #       p.grad.data += grad_noise
-
-        #loss.backward()
-        #self.optimizer.step()
-
+        if (batch_idx+1) % 200 == 0:
+            epsilon = privacy_engine.get_epsilon(DELTA)
+            print(
+                f"\tTrain Epoch: {epoch} \t"
+                f"Loss: {np.mean(losses):.6f} "
+                f"Acc@1: {np.mean(top1_acc) * 100:.6f} "
+                f"(ε = {epsilon:.2f}, δ = {DELTA})"
+            )
 
         return {'loss': loss.item()}
 
-    def predict(self, x):
-        return self.network(x)
+    def predict(self, model, x):
+        return model(x)
 
     def ReLU_inplace_to_False(self, module):
         for layer in module._modules.values():
@@ -327,9 +275,9 @@ class DPSGD(Algorithm):
         return (preds == labels).mean()
 
     ## DiWA for saving initialization ##
-    def save_path_for_future_init(self, path_for_init):
+    def save_path_for_future_init(self, model, path_for_init):
         assert not os.path.exists(path_for_init), "The initialization has already been saved"
-        torch.save(self.network.state_dict(), path_for_init)
+        torch.save(model.state_dict(), path_for_init)
 
 
 

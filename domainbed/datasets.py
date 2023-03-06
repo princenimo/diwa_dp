@@ -136,22 +136,22 @@ class SingleEnvironmentCIFAR10(MultipleDomainDataset):
         original_dataset_tr = CIFAR10(root, train=True, download=True)
         original_dataset_te = CIFAR10(root, train=False, download=True)
 
-        #original_images = torch.tensor(original_dataset_tr.data) #torch.cat((torch.tensor(original_dataset_tr.data),
+        original_images = torch.tensor(original_dataset_tr.data) #torch.cat((torch.tensor(original_dataset_tr.data),
                           #           torch.tensor(original_dataset_te.data)))
 
-        original_images = torch.cat((torch.tensor(original_dataset_tr.data),
-                                    torch.tensor(original_dataset_te.data)))
+        #original_images = torch.cat((torch.tensor(original_dataset_tr.data),
+        #                            torch.tensor(original_dataset_te.data)))
 
         print(original_images.shape)
         #imgtensor = transform(original_dataset_tr.data)
         original_images = original_images.permute(0,3,1,2)
         print(original_images.shape)
         #print(torch.Tensor(original_dataset_tr.targets))
-        #original_labels = torch.tensor(original_dataset_tr.targets) #torch.cat((torch.tensor(original_dataset_tr.targets),
+        original_labels = torch.tensor(original_dataset_tr.targets) #torch.cat((torch.tensor(original_dataset_tr.targets),
                           #          torch.tensor(original_dataset_te.targets)))
 
-        original_labels = torch.cat((torch.tensor(original_dataset_tr.targets),
-                                    torch.tensor(original_dataset_te.targets)))
+        #original_labels = torch.cat((torch.tensor(original_dataset_tr.targets),
+        #                            torch.tensor(original_dataset_te.targets)))
 
         #print(type(original_images))
         #print(original_images.shape)

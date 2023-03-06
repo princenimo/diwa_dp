@@ -12,6 +12,7 @@ import uuid
 import numpy as np
 import PIL
 import torch
+import torch.nn as nn
 import torch.multiprocessing
 import torchvision
 import torch.utils.data
@@ -19,8 +20,12 @@ import torch.utils.data
 from domainbed import datasets
 from domainbed import hparams_registry
 from domainbed import algorithms
-from domainbed.lib import misc
+from domainbed.lib import misc, meters
 from domainbed.lib.fast_data_loader import InfiniteDataLoader, FastDataLoader
+
+from opacus import PrivacyEngine
+from opacus.utils.batch_memory_manager import BatchMemoryManager
+from tqdm.notebook import tqdm
 
 #torch.multiprocessing.set_sharing_strategy('file_system')
 
@@ -60,6 +65,11 @@ if __name__ == "__main__":
     # every once in a while, and then load them from disk here.
     start_step = 0
     algorithm_dict = None
+    NUM_EPOCHS = 200
+    MAX_GRAD_NORM = 1.2
+    EPSILON = 50.0
+    DELTA = 1e-5
+    MAX_PHYSICAL_BATCH_SIZE = 128
 
     os.makedirs(args.output_dir, exist_ok=True)
     sys.stdout = misc.Tee(os.path.join(args.output_dir, 'out.txt'))
@@ -163,7 +173,9 @@ if __name__ == "__main__":
     for i, (env, env_weights) in enumerate(in_splits):
         if i not in args.test_envs:
             print(i, (env, env_weights))
-    print(hparams['batch_size'])
+    print("Batch Size: ", hparams['batch_size'])
+    hparams['batch_size'] = 512
+    print("Batch Size: ", hparams['batch_size'])
     print(dataset.N_WORKERS)
     print("-------")
 
@@ -232,6 +244,19 @@ if __name__ == "__main__":
     checkpoint_freq = args.checkpoint_freq or dataset.CHECKPOINT_FREQ
     #print(checkpoint_freq)
 
+    privacy_engine = PrivacyEngine()
+    model, optimizer, train_loader = privacy_engine.make_private_with_epsilon(
+        module=algorithm.network,
+        optimizer=algorithm.optimizer,
+        data_loader=t_loaders,
+        epochs=NUM_EPOCHS,
+        target_epsilon=EPSILON,
+        target_delta=DELTA,
+        max_grad_norm=MAX_GRAD_NORM,
+    )
+
+    print(f"Using sigma={optimizer.noise_multiplier} and C={MAX_GRAD_NORM}") 
+
     def save_checkpoint(filename, results=None):
         if args.skip_model_save:
             return
@@ -250,80 +275,186 @@ if __name__ == "__main__":
 
     best_score = -float("inf")
     last_results_keys = None
-    for step in range(start_step, n_steps):
-        #print("Step # ", step)
-        step_start_time = time.time()
-        minibatches_device = [(x.to(device), y.to(device))
-            for x,y in next(train_minibatches_iterator)]
-            #print(lst)
-            #print(y)
-        if args.task == "domain_adaptation":
-            uda_device = [x.to(device)
-                for x,_ in next(uda_minibatches_iterator)]
-        else:
-            uda_device = None
-        step_vals = algorithm.update(minibatches_device, t_loaders, uda_device)
-        checkpoint_vals['step_time'].append(time.time() - step_start_time)
 
-        for key, val in step_vals.items():
-            checkpoint_vals[key].append(val)
+    print("Let's Get Dirty!")
+    ##########################################
+    ###### Dirty Work ######
+    for epoch in tqdm(range(0, NUM_EPOCHS), desc="Epoch", unit="epoch"):
+        loss_meter = meters.AverageMeter()
+        timer = meters.TimeMeter()
+        epoch_start = time.time()
+        criterion = nn.CrossEntropyLoss()
+        losses = []
+        top1_acc = []
+        with BatchMemoryManager(
+            data_loader=train_loader, 
+            max_physical_batch_size=MAX_PHYSICAL_BATCH_SIZE, 
+            optimizer=optimizer
+        ) as memory_safe_data_loader:
+            for batch_idx, (imgs, labels) in enumerate(memory_safe_data_loader):
 
-        if (step % checkpoint_freq == 0) or (step == n_steps - 1):
-            #print("checkpoint FREQQQQ")
-            results = {
-                'step': step,
-                'epoch': step / steps_per_epoch,
-            }
+                timer.batch_start()
+                step_start_time = time.time()
+                imgs, labels = imgs.to(device), labels.to(device)
+                # perform an update step
+                #step_vals = algorithm.update(minibatches_device, t_loaders, uda_device)
+                step_vals = algorithm.update(model, optimizer, batch_idx, imgs, labels, epoch, device, criterion, losses, top1_acc, privacy_engine)
+                checkpoint_vals['step_time'].append(time.time() - step_start_time)
+                loss_meter.update(step_vals['loss'], n=imgs.size(0))
 
-            for key, val in checkpoint_vals.items():
-                results[key] = np.mean(val)
+                for key, val in step_vals.items():
+                    checkpoint_vals[key].append(val)
 
-            evals = zip(eval_loader_names, eval_loaders, eval_weights)
-            for name, loader, weights in evals:
-                acc = misc.accuracy(algorithm, loader, weights, device)
-                results[name+'_acc'] = acc
+                if batch_idx % checkpoint_freq == 0 or (batch_idx == (len(t_loaders.dataset)/hparams['batch_size']) + 1):
+                    print("Batch index", batch_idx)
+                    #print(f'Train epoch {epoch}/{NUM_EPOCHS} ', end='')
+                    #print(f'[{batch_idx * imgs.size(0)}/{len(t_loaders.dataset)} ({100. * batch_idx / len(t_loaders):.0f}%)]\t', end='')
+                    #print(f'Loss: {step_vals["loss"]:.3f} (avg. {loss_meter.avg:.3f})\t', end='')
+                    #print(f'Time: {timer.batch_time.val:.3f} (avg. {timer.batch_time.avg:.3f})')
+                    
+                    results = {
+                        'step': batch_idx,
+                        'epoch': epoch,
+                    }
 
-            results['mem_gb'] = torch.cuda.max_memory_allocated() / (1024.*1024.*1024.)
+                    for key, val in checkpoint_vals.items():
+                        results[key] = np.mean(val)
 
-            results_keys = sorted(results.keys())
-            if results_keys != last_results_keys:
-                misc.print_row(results_keys, colwidth=12)
-                last_results_keys = results_keys
-            misc.print_row([results[key] for key in results_keys],
-                colwidth=12)
+                    evals = zip(eval_loader_names, eval_loaders, eval_weights)
+                    for name, loader, weights in evals:
+                        acc = misc.accuracy(model, loader, weights, device)
+                        results[name+'_acc'] = acc
 
-            results.update({
-                'hparams': hparams,
-                'args': vars(args)
-            })
+                    results['mem_gb'] = torch.cuda.max_memory_allocated() / (1024.*1024.*1024.)
 
-            epochs_path = os.path.join(args.output_dir, 'results.jsonl')
-            with open(epochs_path, 'a') as f:
-                f.write(json.dumps(results, sort_keys=True) + "\n")
+                    results_keys = sorted(results.keys())
+                    if results_keys != last_results_keys:
+                        misc.print_row(results_keys, colwidth=12)
+                        last_results_keys = results_keys
+                    
+                    misc.print_row([results[key] for key in results_keys],colwidth=12)
 
-            ## DiWA ##
-            current_score = misc.get_score(results, args.test_envs)
-            print(current_score)
-            if current_score > best_score:
-                best_score = current_score
-                print(f"Saving new best score at step: {step} at path: model_best.pkl")
-                save_checkpoint(
-                    'model_best.pkl',
-                    results=json.dumps(results, sort_keys=True),
-                )
-                algorithm.to(device)
+                    results.update({
+                        'hparams': hparams,
+                        'args': vars(args)
+                    })
 
-            algorithm_dict = algorithm.state_dict()
-            start_step = step + 1
-            checkpoint_vals = collections.defaultdict(lambda: [])
+                    epochs_path = os.path.join(args.output_dir, 'results.jsonl')
+                    with open(epochs_path, 'a') as f:
+                        f.write(json.dumps(results, sort_keys=True) + "\n")
 
-            if args.save_model_every_checkpoint:
-                save_checkpoint(f'model_step{step}.pkl')
+                    ## DiWA ##
+                    current_score = misc.get_score(results, args.test_envs)
+                    print("Current Score", current_score)
+                    print("Best Score", best_score)
+                    if current_score > best_score:
+                        best_score = current_score
+                        print(f"Saving new best score at step: {batch_idx} at path: model_best.pkl")
+                        save_checkpoint(
+                            'model_best.pkl',
+                            results=json.dumps(results, sort_keys=True),
+                        )
+                        algorithm.to(device)
 
+                    algorithm_dict = algorithm.state_dict()
+                    #start_step = step + 1
+                    checkpoint_vals = collections.defaultdict(lambda: [])
+
+                    if args.save_model_every_checkpoint:
+                        save_checkpoint(f'model_step{step}.pkl')
+
+
+            timer.batch_end()
+
+            results = {'Epoch': epoch, 'Train': {}, 'Validation': {}, 'Test': {}}
     ## DiWA ##
     if args.init_step:
-        algorithm.save_path_for_future_init(args.path_for_init)
+        print("--------------  DIWA ------------------")
+        algorithm.save_path_for_future_init(model, args.path_for_init)
     save_checkpoint('model.pkl')
 
     with open(os.path.join(args.output_dir, 'done'), 'w') as f:
         f.write('done')
+
+            
+
+    ###### Dirty Work ######
+    ##########################################
+
+    # for step in range(start_step, n_steps):
+    #     #print("Step # ", step)
+    #     step_start_time = time.time()
+    #     minibatches_device = [(x.to(device), y.to(device))
+    #         for x,y in next(train_minibatches_iterator)]
+    #         #print(lst)
+    #         #print(y)
+    #     if args.task == "domain_adaptation":
+    #         uda_device = [x.to(device)
+    #             for x,_ in next(uda_minibatches_iterator)]
+    #     else:
+    #         uda_device = None
+    #     step_vals = algorithm.update(minibatches_device, t_loaders, uda_device)
+    #     checkpoint_vals['step_time'].append(time.time() - step_start_time)
+
+    #     for key, val in step_vals.items():
+    #         checkpoint_vals[key].append(val)
+
+    #     if (step % checkpoint_freq == 0) or (step == n_steps - 1):
+    #         #print("checkpoint FREQQQQ")
+    #         results = {
+    #             'step': step,
+    #             'epoch': step / steps_per_epoch,
+    #         }
+
+    #         for key, val in checkpoint_vals.items():
+    #             results[key] = np.mean(val)
+
+    #         evals = zip(eval_loader_names, eval_loaders, eval_weights)
+    #         for name, loader, weights in evals:
+    #             acc = misc.accuracy(algorithm, loader, weights, device)
+    #             results[name+'_acc'] = acc
+
+    #         results['mem_gb'] = torch.cuda.max_memory_allocated() / (1024.*1024.*1024.)
+
+    #         results_keys = sorted(results.keys())
+    #         if results_keys != last_results_keys:
+    #             misc.print_row(results_keys, colwidth=12)
+    #             last_results_keys = results_keys
+    #         misc.print_row([results[key] for key in results_keys],
+    #             colwidth=12)
+
+    #         results.update({
+    #             'hparams': hparams,
+    #             'args': vars(args)
+    #         })
+
+    #         epochs_path = os.path.join(args.output_dir, 'results.jsonl')
+    #         with open(epochs_path, 'a') as f:
+    #             f.write(json.dumps(results, sort_keys=True) + "\n")
+
+    #         ## DiWA ##
+    #         current_score = misc.get_score(results, args.test_envs)
+    #         print(current_score)
+    #         if current_score > best_score:
+    #             best_score = current_score
+    #             print(f"Saving new best score at step: {step} at path: model_best.pkl")
+    #             save_checkpoint(
+    #                 'model_best.pkl',
+    #                 results=json.dumps(results, sort_keys=True),
+    #             )
+    #             algorithm.to(device)
+
+    #         algorithm_dict = algorithm.state_dict()
+    #         start_step = step + 1
+    #         checkpoint_vals = collections.defaultdict(lambda: [])
+
+    #         if args.save_model_every_checkpoint:
+    #             save_checkpoint(f'model_step{step}.pkl')
+
+    # ## DiWA ##
+    # if args.init_step:
+    #     algorithm.save_path_for_future_init(args.path_for_init)
+    # save_checkpoint('model.pkl')
+
+    # with open(os.path.join(args.output_dir, 'done'), 'w') as f:
+    #     f.write('done')
