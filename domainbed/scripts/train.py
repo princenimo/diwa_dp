@@ -27,7 +27,7 @@ from opacus import PrivacyEngine
 from opacus.utils.batch_memory_manager import BatchMemoryManager
 from tqdm.notebook import tqdm
 
-#torch.multiprocessing.set_sharing_strategy('file_system')
+# torch.multiprocessing.set_sharing_strategy('file_system')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Domain generalization')
@@ -35,25 +35,25 @@ if __name__ == "__main__":
     parser.add_argument('--dataset', type=str, default="RotatedMNIST")
     parser.add_argument('--algorithm', type=str, default="ERM")
     parser.add_argument('--task', type=str, default="domain_generalization",
-        choices=["domain_generalization", "domain_adaptation"])
+                        choices=["domain_generalization", "domain_adaptation"])
     parser.add_argument('--hparams', type=str,
-        help='JSON-serialized hparams dict')
+                        help='JSON-serialized hparams dict')
     parser.add_argument('--hparams_seed', type=int, default=0,
-        help='Seed for random hparams (0 means "default hparams")')
+                        help='Seed for random hparams (0 means "default hparams")')
     parser.add_argument('--trial_seed', type=int, default=0,
-        help='Trial number (used for seeding split_dataset and '
-        'random_hparams).')
+                        help='Trial number (used for seeding split_dataset and '
+                        'random_hparams).')
     parser.add_argument('--seed', type=int, default=0,
-        help='Seed for everything else')
+                        help='Seed for everything else')
     parser.add_argument('--steps', type=int, default=None,
-        help='Number of steps. Default is dataset-dependent.')
+                        help='Number of steps. Default is dataset-dependent.')
     parser.add_argument('--checkpoint_freq', type=int, default=None,
-        help='Checkpoint every N steps. Default is dataset-dependent.')
+                        help='Checkpoint every N steps. Default is dataset-dependent.')
     parser.add_argument('--test_envs', type=int, nargs='+', default=[0])
     parser.add_argument('--output_dir', type=str, default="train_output")
     parser.add_argument('--holdout_fraction', type=float, default=0.2)
     parser.add_argument('--uda_holdout_fraction', type=float, default=0,
-        help="For domain adaptation, % of test to use unlabeled for training.")
+                        help="For domain adaptation, % of test to use unlabeled for training.")
     parser.add_argument('--skip_model_save', action='store_true')
     parser.add_argument('--save_model_every_checkpoint', action='store_true')
     ## DiWA ##
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     algorithm_dict = None
     NUM_EPOCHS = 200
     MAX_GRAD_NORM = 1.2
-    EPSILON = 50.0
+    EPSILON = 8.0
     DELTA = 1e-5
     MAX_PHYSICAL_BATCH_SIZE = 128
 
@@ -89,10 +89,11 @@ if __name__ == "__main__":
         print('\t{}: {}'.format(k, v))
 
     if args.hparams_seed == 0:
-        hparams = hparams_registry.default_hparams(args.algorithm, args.dataset)
+        hparams = hparams_registry.default_hparams(
+            args.algorithm, args.dataset)
     else:
         hparams = hparams_registry.random_hparams(args.algorithm, args.dataset,
-            misc.seed_hash(args.hparams_seed, args.trial_seed))
+                                                  misc.seed_hash(args.hparams_seed, args.trial_seed))
     if args.hparams:
         hparams.update(json.loads(args.hparams))
 
@@ -111,10 +112,9 @@ if __name__ == "__main__":
     else:
         device = "cpu"
 
-
     if args.dataset in vars(datasets):
         dataset = vars(datasets)[args.dataset](args.data_dir,
-            args.test_envs, hparams)
+                                               args.test_envs, hparams)
     else:
         raise NotImplementedError
 
@@ -135,21 +135,21 @@ if __name__ == "__main__":
     in_splits = []
     out_splits = []
     uda_splits = []
-    #print(list(enumerate(dataset)))
+    # print(list(enumerate(dataset)))
     for env_i, env in enumerate(dataset):
         print(env_i)
         print(env)
         uda = []
 
         out, in_ = misc.split_dataset(env,
-            int(len(env)*args.holdout_fraction),
-            misc.seed_hash(args.trial_seed, env_i))
+                                      int(len(env)*args.holdout_fraction),
+                                      misc.seed_hash(args.trial_seed, env_i))
         print(out)
         print(in_)
         if env_i in args.test_envs:
             uda, in_ = misc.split_dataset(in_,
-                int(len(in_)*args.uda_holdout_fraction),
-                misc.seed_hash(args.trial_seed, env_i))
+                                          int(len(in_)*args.uda_holdout_fraction),
+                                          misc.seed_hash(args.trial_seed, env_i))
 
         if hparams['class_balanced']:
             in_weights = misc.make_weights_for_balanced_classes(in_)
@@ -168,8 +168,8 @@ if __name__ == "__main__":
     print("-------")
     print(list(in_splits))
     print(args.test_envs)
-    #print(env)
-    #print(env_weights)
+    # print(env)
+    # print(env_weights)
     for i, (env, env_weights) in enumerate(in_splits):
         if i not in args.test_envs:
             print(i, (env, env_weights))
@@ -185,11 +185,11 @@ if __name__ == "__main__":
         batch_size=hparams['batch_size'],
         num_workers=dataset.N_WORKERS)
         for i, (env, env_weights) in enumerate(in_splits)]
-        #if i not in args.test_envs]
+    # if i not in args.test_envs]
 
     t_loaders = torch.utils.data.DataLoader(
-            dataset[0],
-            batch_size=hparams['batch_size'],
+        dataset[0],
+        batch_size=hparams['batch_size'],
     )
 
     uda_loaders = [InfiniteDataLoader(
@@ -205,24 +205,26 @@ if __name__ == "__main__":
         batch_size=64,
         num_workers=dataset.N_WORKERS)
         for env, _ in (in_splits + out_splits + uda_splits)]
-    eval_weights = [None for _, weights in (in_splits + out_splits + uda_splits)]
+    eval_weights = [None for _, weights in (
+        in_splits + out_splits + uda_splits)]
     eval_loader_names = ['env{}_in'.format(i)
-        for i in range(len(in_splits))]
+                         for i in range(len(in_splits))]
     eval_loader_names += ['env{}_out'.format(i)
-        for i in range(len(out_splits))]
+                          for i in range(len(out_splits))]
     eval_loader_names += ['env{}_uda'.format(i)
-        for i in range(len(uda_splits))]
+                          for i in range(len(uda_splits))]
 
     algorithm_class = algorithms.get_algorithm_class(args.algorithm)
-    #if args.algorithm == "ERM":
+    # if args.algorithm == "ERM":
     if args.algorithm == "ERM" or args.algorithm == "DPSGD":
         algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
-            len(dataset) - len(args.test_envs), hparams,
-            init_step=args.init_step,
-            path_for_init=args.path_for_init)
+                                    len(dataset) -
+                                    len(args.test_envs), hparams, t_loaders,
+                                    init_step=args.init_step,
+                                    path_for_init=args.path_for_init)
     else:
         algorithm = algorithm_class(dataset.input_shape, dataset.num_classes,
-            len(dataset) - len(args.test_envs), hparams)
+                                    len(dataset) - len(args.test_envs), hparams)
 
     if algorithm_dict is not None:
         algorithm.load_state_dict(algorithm_dict)
@@ -230,32 +232,22 @@ if __name__ == "__main__":
     algorithm.to(device)
 
     train_minibatches_iterator = zip(*train_loaders)
-    #print(next(train_minibatches_iterator))
+    # print(next(train_minibatches_iterator))
     print("checkpoint")
     uda_minibatches_iterator = zip(*uda_loaders)
     checkpoint_vals = collections.defaultdict(lambda: [])
 
-    steps_per_epoch = min([len(env)/hparams['batch_size'] for env,_ in in_splits])
+    steps_per_epoch = min([len(env)/hparams['batch_size']
+                          for env, _ in in_splits])
 
     print("Steps per epoch ", steps_per_epoch)
 
     n_steps = args.steps or dataset.N_STEPS
     print("number of steps ", n_steps)
     checkpoint_freq = args.checkpoint_freq or dataset.CHECKPOINT_FREQ
-    #print(checkpoint_freq)
+    # print(checkpoint_freq)
 
-    privacy_engine = PrivacyEngine()
-    model, optimizer, train_loader = privacy_engine.make_private_with_epsilon(
-        module=algorithm.network,
-        optimizer=algorithm.optimizer,
-        data_loader=t_loaders,
-        epochs=NUM_EPOCHS,
-        target_epsilon=EPSILON,
-        target_delta=DELTA,
-        max_grad_norm=MAX_GRAD_NORM,
-    )
-
-    print(f"Using sigma={optimizer.noise_multiplier} and C={MAX_GRAD_NORM}") 
+    #print(f"Using sigma={optimizer.noise_multiplier} and C={MAX_GRAD_NORM}")
 
     def save_checkpoint(filename, results=None):
         if args.skip_model_save:
@@ -280,103 +272,75 @@ if __name__ == "__main__":
     ##########################################
     ###### Dirty Work ######
     for epoch in tqdm(range(0, NUM_EPOCHS), desc="Epoch", unit="epoch"):
-        loss_meter = meters.AverageMeter()
-        timer = meters.TimeMeter()
-        epoch_start = time.time()
-        criterion = nn.CrossEntropyLoss()
-        losses = []
-        top1_acc = []
-        with BatchMemoryManager(
-            data_loader=train_loader, 
-            max_physical_batch_size=MAX_PHYSICAL_BATCH_SIZE, 
-            optimizer=optimizer
-        ) as memory_safe_data_loader:
-            for batch_idx, (imgs, labels) in enumerate(memory_safe_data_loader):
+        step_start_time = time.time()
+        step_vals = algorithm.update(epoch, device)
+        checkpoint_vals['step_time'].append(time.time() - step_start_time)
 
-                timer.batch_start()
-                step_start_time = time.time()
-                imgs, labels = imgs.to(device), labels.to(device)
-                # perform an update step
-                #step_vals = algorithm.update(minibatches_device, t_loaders, uda_device)
-                step_vals = algorithm.update(model, optimizer, batch_idx, imgs, labels, epoch, device, criterion, losses, top1_acc, privacy_engine)
-                checkpoint_vals['step_time'].append(time.time() - step_start_time)
-                loss_meter.update(step_vals['loss'], n=imgs.size(0))
+        for key, val in step_vals.items():
+            checkpoint_vals[key].append(val)
 
-                for key, val in step_vals.items():
-                    checkpoint_vals[key].append(val)
+        results = {
+            'epoch': epoch,
+        }
 
-                if batch_idx % checkpoint_freq == 0 or (batch_idx == (len(t_loaders.dataset)/hparams['batch_size']) + 1):
-                    print("Batch index", batch_idx)
-                    #print(f'Train epoch {epoch}/{NUM_EPOCHS} ', end='')
-                    #print(f'[{batch_idx * imgs.size(0)}/{len(t_loaders.dataset)} ({100. * batch_idx / len(t_loaders):.0f}%)]\t', end='')
-                    #print(f'Loss: {step_vals["loss"]:.3f} (avg. {loss_meter.avg:.3f})\t', end='')
-                    #print(f'Time: {timer.batch_time.val:.3f} (avg. {timer.batch_time.avg:.3f})')
-                    
-                    results = {
-                        'step': batch_idx,
-                        'epoch': epoch,
-                    }
+        for key, val in checkpoint_vals.items():
+            results[key] = np.mean(val)
 
-                    for key, val in checkpoint_vals.items():
-                        results[key] = np.mean(val)
+        evals = zip(eval_loader_names, eval_loaders, eval_weights)
+        for name, loader, weights in evals:
+            acc = misc.accuracy(algorithm.network, loader, weights, device)
+            results[name+'_acc'] = acc
 
-                    evals = zip(eval_loader_names, eval_loaders, eval_weights)
-                    for name, loader, weights in evals:
-                        acc = misc.accuracy(model, loader, weights, device)
-                        results[name+'_acc'] = acc
+        results['mem_gb'] = torch.cuda.max_memory_allocated() / \
+            (1024.*1024.*1024.)
 
-                    results['mem_gb'] = torch.cuda.max_memory_allocated() / (1024.*1024.*1024.)
+        results_keys = sorted(results.keys())
+        if results_keys != last_results_keys:
+            misc.print_row(results_keys, colwidth=12)
+            last_results_keys = results_keys
 
-                    results_keys = sorted(results.keys())
-                    if results_keys != last_results_keys:
-                        misc.print_row(results_keys, colwidth=12)
-                        last_results_keys = results_keys
-                    
-                    misc.print_row([results[key] for key in results_keys],colwidth=12)
+        misc.print_row([results[key] for key in results_keys], colwidth=12)
 
-                    results.update({
-                        'hparams': hparams,
-                        'args': vars(args)
-                    })
+        results.update({
+            'hparams': hparams,
+            'args': vars(args)
+        })
 
-                    epochs_path = os.path.join(args.output_dir, 'results.jsonl')
-                    with open(epochs_path, 'a') as f:
-                        f.write(json.dumps(results, sort_keys=True) + "\n")
+        epochs_path = os.path.join(args.output_dir, 'results.jsonl')
+        with open(epochs_path, 'a') as f:
+            f.write(json.dumps(results, sort_keys=True) + "\n")
 
-                    ## DiWA ##
-                    current_score = misc.get_score(results, args.test_envs)
-                    print("Current Score", current_score)
-                    print("Best Score", best_score)
-                    if current_score > best_score:
-                        best_score = current_score
-                        print(f"Saving new best score at step: {batch_idx} at path: model_best.pkl")
-                        save_checkpoint(
-                            'model_best.pkl',
-                            results=json.dumps(results, sort_keys=True),
-                        )
-                        algorithm.to(device)
+        ## DiWA ##
+        current_score = misc.get_score(results, args.test_envs)
+        print("Current Score", current_score)
+        print("Best Score", best_score)
+        if current_score > best_score:
+            best_score = current_score
+            print(
+                f"Saving new best score at epoch: {epoch} at path: model_best.pkl")
+            save_checkpoint(
+                'model_best.pkl',
+                results=json.dumps(results, sort_keys=True),
+            )
+            algorithm.to(device)
 
-                    algorithm_dict = algorithm.state_dict()
-                    #start_step = step + 1
-                    checkpoint_vals = collections.defaultdict(lambda: [])
+        algorithm_dict = algorithm.state_dict()
+        # start_step = step + 1
+        checkpoint_vals = collections.defaultdict(lambda: [])
 
-                    if args.save_model_every_checkpoint:
-                        save_checkpoint(f'model_step{step}.pkl')
+        if args.save_model_every_checkpoint:
+            save_checkpoint(f'model_step{epoch}.pkl')
 
-
-            timer.batch_end()
-
-            results = {'Epoch': epoch, 'Train': {}, 'Validation': {}, 'Test': {}}
+        #timer.batch_end()
+        #results = {'Epoch': epoch, 'Train': {}, 'Validation': {}, 'Test': {}}
     ## DiWA ##
     if args.init_step:
         print("--------------  DIWA ------------------")
-        algorithm.save_path_for_future_init(model, args.path_for_init)
+        algorithm.save_path_for_future_init(algorithm.network, args.path_for_init)
     save_checkpoint('model.pkl')
 
     with open(os.path.join(args.output_dir, 'done'), 'w') as f:
         f.write('done')
-
-            
 
     ###### Dirty Work ######
     ##########################################

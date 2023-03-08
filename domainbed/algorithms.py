@@ -88,11 +88,11 @@ class Algorithm(torch.nn.Module):
     - update()
     - predict()
     """
-    def __init__(self, input_shape, num_classes, num_domains, hparams):
+    def __init__(self, input_shape, num_classes, num_domains, hparams, trainloader):
         super(Algorithm, self).__init__()
         self.hparams = hparams
 
-    def update(self, model, optimizer, batch_idx, imgs, labels, epoch, device, criterion, losses, top1_acc, privacy_engine):
+    def update(self, epoch, device):
         """
         Perform one update step, given a list of (x, y) tuples for all
         environments.
@@ -165,9 +165,9 @@ class DPSGD(Algorithm):
     DPSGD
     """
 
-    def __init__(self, input_shape, num_classes, num_domains, hparams, init_step=False, path_for_init=None):
+    def __init__(self, input_shape, num_classes, num_domains, hparams, trainloader, init_step=False, path_for_init=None):
         super(DPSGD, self).__init__(input_shape, num_classes, num_domains,
-                                  hparams)
+                                  hparams, trainloader)
         self.featurizer = networks.Featurizer(input_shape, self.hparams)
         self.classifier = networks.Classifier(
             self.featurizer.n_outputs,
@@ -175,6 +175,13 @@ class DPSGD(Algorithm):
             self.hparams['nonlinear_classifier'])
 
         #self.network = nn.Sequential(self.featurizer, self.classifier)
+        self.DELTA = 1e-5
+        self.NUM_EPOCHS = 200
+        self.MAX_GRAD_NORM = 1.2
+        self.EPSILON = 8.0
+        self.DELTA = 1e-5
+        self.MAX_PHYSICAL_BATCH_SIZE = 128
+        self.LR = 1e-3
         self.network = models.resnet18(num_classes=10) #networks.ResNet(input_shape, self.hparams)
 
         errors = ModuleValidator.validate(self.network, strict=False)
@@ -186,6 +193,27 @@ class DPSGD(Algorithm):
 
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.network = self.network.to(device)
+
+        optim = torch.optim.RMSprop(
+            self.network.parameters(),
+            lr=self.LR,
+            weight_decay=self.hparams['weight_decay']
+        )
+
+        self.privacy_engine = PrivacyEngine()
+        model, optimizer, train_loader = self.privacy_engine.make_private_with_epsilon(
+            module=self.network,
+            optimizer=optim,
+            data_loader=trainloader,
+            epochs=self.NUM_EPOCHS,
+            target_epsilon=self.EPSILON,
+            target_delta=self.DELTA,
+            max_grad_norm=self.MAX_GRAD_NORM,
+        )
+        print(f"Using sigma={optimizer.noise_multiplier} and C={self.MAX_GRAD_NORM}")
+        self.network = model
+        self.optimizer = optimizer
+        self.train_loader = train_loader
 
         #print(self.network)
         #self.network = extend(self.network)
@@ -212,53 +240,56 @@ class DPSGD(Algorithm):
             # linear probing
             parameters_to_be_optimized = self.classifier.parameters()
 
-        self.optimizer = torch.optim.SGD(
-            self.network.parameters(),
-            lr=self.hparams["lr"],
-            weight_decay=self.hparams['weight_decay']
-        )
+
 
         #for module in self.network.modules():
         #    if isinstance(module, nn.ReLU):
         #        print("Set ReLU activation inplace to false")
         #       module.inplace = False
 
-    def update(self, model, optimizer, batch_idx, images, target, epoch, device, criterion, losses, top1_acc, privacy_engine):
-        DELTA = 1e-5
-        self.network = model
-        model.train()
+    def update(self, epoch, device):
+        
+        #self.network = model
+        self.network.train()
         criterion = nn.CrossEntropyLoss()
 
         losses = []
         top1_acc = []
 
-        optimizer.zero_grad()
+        with BatchMemoryManager(
+            data_loader=self.train_loader, 
+            max_physical_batch_size=self.MAX_PHYSICAL_BATCH_SIZE, 
+            optimizer=self.optimizer
+        ) as memory_safe_data_loader:
+            for batch_idx, (images, target) in enumerate(memory_safe_data_loader):
+                self.optimizer.zero_grad()
+                images = images.to(device)
+                target = target.to(device)
 
-        # compute output
-        output = model(images)
-        loss = criterion(output, target)
+                # compute output
+                output = self.network(images)
+                loss = criterion(output, target)
 
-        preds = np.argmax(output.detach().cpu().numpy(), axis=1)
-        labels = target.detach().cpu().numpy()
+                preds = np.argmax(output.detach().cpu().numpy(), axis=1)
+                labels = target.detach().cpu().numpy()
 
-        # measure accuracy and record loss
-        acc = self.accuracy(preds, labels)
+                # measure accuracy and record loss
+                acc = self.accuracy(preds, labels)
+        
+                losses.append(loss.item())
+                top1_acc.append(acc)
 
-        losses.append(loss.item())
-        top1_acc.append(acc)
+                loss.backward()
+                self.optimizer.step()
 
-        loss.backward()
-        optimizer.step()
-
-
-        if (batch_idx+1) % 200 == 0:
-            epsilon = privacy_engine.get_epsilon(DELTA)
-            print(
-                f"\tTrain Epoch: {epoch} \t"
-                f"Loss: {np.mean(losses):.6f} "
-                f"Acc@1: {np.mean(top1_acc) * 100:.6f} "
-                f"(ε = {epsilon:.2f}, δ = {DELTA})"
-            )
+                if (batch_idx+1) % 200 == 0:
+                    epsilon = self.privacy_engine.get_epsilon(self.DELTA)
+                    print(
+                        f"\tTrain Epoch: {epoch} \t"
+                        f"Loss: {np.mean(losses):.6f} "
+                        f"Acc@1: {np.mean(top1_acc) * 100:.6f} "
+                        f"(ε = {epsilon:.2f}, δ = {self.DELTA})"
+                    )
 
         return {'loss': loss.item()}
 
